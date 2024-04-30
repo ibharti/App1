@@ -43,5 +43,12 @@ static void ConfigureServices(IServiceCollection services)
     services.AddSingleton<ContactService>();
     services.AddRazorPages();
     services.AddServerSideBlazor();
+    //AddSingleton is added to make the service singleton
     services.AddSingleton<WeatherForecastService>();
+    //add AddTransient to make the service transient
+    services.AddTransient<ContactService>(); 
+    //this creates new insiatnce each time the reload of the page happens,
+    //but it is not the same in case of singleton service.
+    //In singleton , till the time there is no restarting the app,
+    //the instance is kept as it is.
 }

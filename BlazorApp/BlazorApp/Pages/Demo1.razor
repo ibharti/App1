@@ -1,4 +1,6 @@
-﻿@page "/demo01"
+﻿@*Singleton service*@
+
+@page "/demo01"
 @inject ContactService contactService 
 
 <h3>demo 01</h3>
@@ -18,7 +20,9 @@ else
 {
     @foreach(var contact in contactService.ContactList)
     {
+        <hr />
         <b>Name : @contact.FirstName @contact.LastName</b>
+        <br />
         <i>Email : @contact.Email </i>
     }
 }
