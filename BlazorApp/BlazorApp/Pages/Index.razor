@@ -1,5 +1,45 @@
 ﻿@page "/"
+@using BlazorApp.Pages.Components
 
+@foreach (var contact in contacts)
+{
+    <ContactComponent FirstName="@contact.FirstName" LastName="@contact.LastName" Email="@contact.Email"></ContactComponent>
+}
+
+@code{
+    private List<Contact> contacts;
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        contacts = new List<Contact>
+        {
+            new Contact
+            {
+                FirstName = "Max",
+                LastName = "Wic",
+                Email = "maxwic@gmail.com"
+            },
+            new Contact
+            {
+                FirstName = "Jon",
+                LastName = "K",
+                Email = "jk@gmail.com"
+            },
+            new Contact
+            {
+                FirstName = "Illo",
+                LastName = "Jai",
+                Email = "Illo@gmail.com"
+            },
+        };
+    }
+}
+
+
+
+@*
+Part 1
 <PageTitle>HomePage</PageTitle>
 
 This is the <b>Homepage</b>
@@ -32,7 +72,7 @@ else
 }
 
 @foreach(var name in names)
-{
+ {
     <p>@((MarkupString)name)</p> 
     //if applied markup string you can update the component 
     //with HTML like list or something
@@ -68,4 +108,4 @@ else
             "value 03",
         };
     }
-}
+} *@
