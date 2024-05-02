@@ -1,16 +1,16 @@
 ﻿@*Transient service*@
 @page "/demo02"
-@inject ContactService contactService
+@inject IContactService contactService
 
 <h3>Singleton service Demo</h3>
 
-@if (contactService.ContactList.Count == 0)
+@if (contactService.GetContacts().Count == 0)
 {
     <b>No contacts to display.</b>
 }
 else
 {
-    @foreach (var contact in contactService.ContactList)
+    @foreach (var contact in contactService.GetContacts())
     {
         <hr />
         <b>Name : @contact.FirstName @contact.LastName</b>

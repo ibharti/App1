@@ -1,0 +1,51 @@
+﻿@page "/sampleJs"
+@inject IJSRuntime jsRuntime;
+
+<h3>Sample JavaScript</h3>
+
+<button @onclick="ShowAlert">Alert</button><br/>
+<button @onclick="ShowConfirm">Confirm</button><br/>
+@*this onclick method is used to call the js method 
+created in the wwwroot and integrated in the _layout file*@
+
+<button onclick="callMethod()">call Method</button><br/> 
+
+<button @onclick="callInvokeMethodJS">call Instance Method</button>
+<br />
+<span>@confirmResult</span>
+
+@code {
+    private string confirmResult;
+
+    //alert("welcome") the js function is displayed this way.
+    private void ShowAlert()
+    {       
+        //we can add as many params we want after alert.
+        jsRuntime.InvokeVoidAsync("alert", "Welcome"); 
+    }
+
+
+    //confirm("learning how to use confirm method and displaying the selected result")
+    private async Task ShowConfirm()
+    {
+        var result = await jsRuntime.InvokeAsync<bool>("confirm", "This a JS confirm method test");
+        confirmResult = result.ToString();
+    }
+
+    private async Task callInvokeMethodJS()
+    {
+        jsRuntime.InvokeVoidAsync("callInstanceMethod", DotNetObjectReference.Create(this));
+    }
+
+    [JSInvokable]
+    public async Task<string> GetValueFromInstance(){
+        return ("Hello from Instance");
+    }
+
+        [JSInvokable]
+        public static Task<string> GetValueFromMethod()
+        {
+            return Task.FromResult<string>("Hello,welcome");
+        }
+
+}

@@ -46,9 +46,14 @@ static void ConfigureServices(IServiceCollection services)
     //AddSingleton is added to make the service singleton
     services.AddSingleton<WeatherForecastService>();
     //add AddTransient to make the service transient
-    services.AddTransient<ContactService>(); 
+    //services.AddSingleton<ContactService>(); 
     //this creates new insiatnce each time the reload of the page happens,
     //but it is not the same in case of singleton service.
     //In singleton , till the time there is no restarting the app,
     //the instance is kept as it is.
+
+    services.AddSingleton<IContactService, ContactService>(); 
+    //services.AddSingleton<IContactService, ContactServiceTesting>(); 
+    //change the above ContactService to ContactServiceTesting,
+    //this way you don't have to change the dependancy in any other file.  
 }

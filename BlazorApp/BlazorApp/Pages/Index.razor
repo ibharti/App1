@@ -1,38 +1,46 @@
 ﻿@page "/"
 @using BlazorApp.Pages.Components
 
+<DeleteConfirmation></DeleteConfirmation>
+
 @foreach (var contact in contacts)
 {
     <ContactComponent FirstName="@contact.FirstName" LastName="@contact.LastName" Email="@contact.Email"></ContactComponent>
 }
 
+
 @code{
+
+    [Inject]
+    IContactService contactService { get; set; }
+
     private List<Contact> contacts;
     protected override void OnInitialized()
     {
         base.OnInitialized();
+        contacts = contactService.GetContacts();
 
-        contacts = new List<Contact>
-        {
-            new Contact
-            {
-                FirstName = "Max",
-                LastName = "Wic",
-                Email = "maxwic@gmail.com"
-            },
-            new Contact
-            {
-                FirstName = "Jon",
-                LastName = "K",
-                Email = "jk@gmail.com"
-            },
-            new Contact
-            {
-                FirstName = "Illo",
-                LastName = "Jai",
-                Email = "Illo@gmail.com"
-            },
-        };
+        // contacts = new List<Contact>
+        // {
+        //     new Contact
+        //     {
+        //         FirstName = "Max",
+        //         LastName = "Wic",
+        //         Email = "maxwic@gmail.com"
+        //     },
+        //     new Contact
+        //     {
+        //         FirstName = "Jon",
+        //         LastName = "K",
+        //         Email = "jk@gmail.com"
+        //     },
+        //     new Contact
+        //     {
+        //         FirstName = "Illo",
+        //         LastName = "Jai",
+        //         Email = "Illo@gmail.com"
+        //     },
+        // };
     }
 }
 
